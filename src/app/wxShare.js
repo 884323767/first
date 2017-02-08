@@ -70,7 +70,6 @@ export function setShareInfo(shareTitle, imgUrl) {
       success: function () {
           alert('分享朋友成功，跳转到第三页');
           controlPage.showThird();
-
       },
       cancel: function () {
           alert('取消分享，留在本页');

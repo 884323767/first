@@ -76,7 +76,6 @@ export function showSecond() {
 }
 export function showThird() {
   location.href = '#/third';
-  alert('hell');
   $('#first').hide()
   $('#second').hide()
   $('#third').show()

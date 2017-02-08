@@ -22,15 +22,15 @@ module.exports = {
         url: 'http://127.0.0.1:8050/'
       }),
       new ExtractTextPlugin('/[name].css'),
-      // new webpack.optimize.UglifyJsPlugin({
-      //   compress: {
-      //     dead_code: true,
-      //     warnings: false
-      //   },
-      //   mangle: {
-      //     except: ['GLOBAL_API'],
-      //   }
-      // })
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          dead_code: true,
+          warnings: false
+        },
+        mangle: {
+          except: ['GLOBAL_API'],
+        }
+      })
     ],
     entry: ["./src/index.js"],
     output: {
