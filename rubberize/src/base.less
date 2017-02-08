@@ -1,0 +1,30 @@
+// base
+@base-font_size: 12;
+@base-width: 1024;
+@base-dprs: 1, 2, 3;
+@base-assets_path: ".";
+
+// layout
+@px: 1px;
+@rem: (@base-width / 10) * 1rem;
+@em: @base-font_size * 1em;
+
+// image
+.background-image (@name, @path: @base-assets_path, @suffix: ".png") {
+  & {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .loop (@i: 1) when (@i <= length(@base-dprs)) {
+    @tmp-dpr_str: e(extract(@base-dprs, @i));
+    @tmp-dpr: `Math.abs(parseInt(@{tmp-dpr_str}))`;
+    @tmp-nx: `@{tmp-dpr} === 1 ? "" : "@@{tmp-dpr}x"`;
+    // loop body
+    :root[data-dpr="@{tmp-dpr}"] & {
+      background-image: url("@{path}/@{name}@{tmp-nx}@{suffix}");
+    }
+    // ./loop body
+    .loop(@i + 1);
+  };
+  .loop();
+}

@@ -1,0 +1,53 @@
+@import '~normalize.css/normalize.css';
+@import '~animate.css/animate.css';
+@import './resetCss.less';
+@import './homePage.less';
+
+@base-width: 375;
+@iphone6-width: 3.75%;
+@iphone6-height: 6.67%;
+@imgBase: '../assets/';
+
+:root[data-platform="desktop"] {
+  .page-container, .page-container .page {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -187.5px;
+    margin-top: -333.5px;
+    width: 375px;
+    height: 667px;
+    overflow: hidden;
+  }
+}
+.page-container, .page-container .page {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+#first {
+  background-color: #388BFF;
+}
+#second {
+  background-color: #29E510;
+}
+#third {
+  background-color: #ef05ea;
+}
+.title {
+  position: absolute;
+  top: 4%;
+  width: 100%;
+  text-align: center;
+  font-size: 26px;
+  color: black;
+}
+
+button {
+  -webkit-tap-highlight-color:transparent;
+
+}
+

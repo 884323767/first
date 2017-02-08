@@ -1,0 +1,162 @@
+// hairline
+@hairline-z_index: 1;
+
+.hairline (@position) when (@position = left) {
+  & {
+    position: relative;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: auto;
+    width: 10/@em;
+    height: 100%;
+    display: block;
+    z-index: @hairline-z_index;
+    transform-origin: 0% 50%;
+  }
+
+  .loop (@i: 1) when (@i <= length(@base-dprs)) {
+    @tmp-dpr_str: e(extract(@base-dprs, @i));
+    @tmp-dpr: `Math.abs(parseInt(@{tmp-dpr_str}))`;
+    @tmp-scale: 1/(@tmp-dpr * 10);
+    // loop body
+    :root[data-dpr="@{tmp-dpr}"] &:before {
+      transform: scaleX(@tmp-scale);
+    }
+    // ./loop body
+    .loop(@i + 1);
+  };
+  .loop();
+}
+
+.hairline (@position) when (@position = top) {
+  & {
+    position: relative;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: auto;
+    height: 10/@em;
+    width: 100%;
+    display: block;
+    z-index: @hairline-z_index;
+    transform-origin: 50% 0%;
+  }
+
+  .loop (@i: 1) when (@i <= length(@base-dprs)) {
+    @tmp-dpr_str: e(extract(@base-dprs, @i));
+    @tmp-dpr: `Math.abs(parseInt(@{tmp-dpr_str}))`;
+    @tmp-scale: 1/(@tmp-dpr * 10);
+    // loop body
+    :root[data-dpr="@{tmp-dpr}"] &:before {
+      transform: scaleY(@tmp-scale);
+    }
+    // ./loop body
+    .loop(@i + 1);
+  };
+  .loop();
+}
+
+.hairline (@position) when (@position = right) {
+  & {
+    position: relative;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: auto;
+    bottom: auto;
+    width: 10/@em;
+    height: 100%;
+    display: block;
+    z-index: @hairline-z_index;
+    transform-origin: 100% 50%;
+  }
+
+  .loop (@i: 1) when (@i <= length(@base-dprs)) {
+    @tmp-dpr_str: e(extract(@base-dprs, @i));
+    @tmp-dpr: `Math.abs(parseInt(@{tmp-dpr_str}))`;
+    @tmp-scale: 1/(@tmp-dpr * 10);
+    // loop body
+    :root[data-dpr="@{tmp-dpr}"] &:after {
+      transform: scaleX(@tmp-scale);
+    }
+    // ./loop body
+    .loop(@i + 1);
+  };
+  .loop();
+}
+
+.hairline (@position) when (@position = bottom) {
+  & {
+    position: relative;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    height: 10/@em;
+    width: 100%;
+    display: block;
+    z-index: @hairline-z_index;
+    transform-origin: 50% 100%;
+  }
+
+  .loop (@i: 1) when (@i <= length(@base-dprs)) {
+    @tmp-dpr_str: e(extract(@base-dprs, @i));
+    @tmp-dpr: `Math.abs(parseInt(@{tmp-dpr_str}))`;
+    @tmp-scale: 1/(@tmp-dpr * 10);
+    // loop body
+    :root[data-dpr="@{tmp-dpr}"] &:after {
+      transform: scaleY(@tmp-scale);
+    }
+    // ./loop body
+    .loop(@i + 1);
+  };
+  .loop();
+}
+
+// For left and top
+.hairline-color (@position, @color) when not (@position = right) and not (@position = bottom) {
+  &:before {
+    background-color: @color;
+  }
+}
+
+// For right and bottom
+.hairline-color (@position, @color) when not (@position = left) and not (@position = top) {
+  &:after {
+    background-color: @color;
+  }
+}
+
+// For left and top
+.hairline-remove (@position) when not (@position = right) and not (@position = bottom) {
+  &:before {
+    display: none;
+  }
+}
+
+// For right and bottom
+.hairline-remove (@position) when not (@position = left) and not (@position = top) {
+  &:after {
+    display: none;
+  }
+}

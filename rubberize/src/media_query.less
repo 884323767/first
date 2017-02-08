@@ -1,0 +1,62 @@
+// media query
+.min-width (@px, @dpr, @platform) {
+  @tmp: `@{px} * ( "@{platform}" === "mobile" ? @{dpr} : 1)`;
+  @min-width: @tmp * 1px;
+}
+
+.max-width (@px, @dpr, @platform) {
+  @tmp: `@{px} * ( "@{platform}" === "mobile" ? @{dpr} : 1)`;
+  @max-width: @tmp * 1px;
+}
+
+// example
+/*
+.loop (@i: 1) when (@i <= length(@base-dprs)) {
+  @tmp-dpr_str: e(extract(@base-dprs, @i));
+  @tmp-dpr: `Math.abs(parseInt(@{tmp-dpr_str}))`;
+  // loop body
+  :root[data-dpr="@{tmp-dpr}"][data-platform="desktop"] & {
+    // [-1287]
+    @media screen {
+      .max-width(1280 - 1, @tmp-dpr, desktop);
+      @media (max-width: @max-width) {
+        width: 1024/@rem;
+        padding-left: 40/@rem;
+        padding-right: 60/@rem;
+      }
+    }
+    // [1280-]
+    @media screen {
+      .min-width(1280, @tmp-dpr, desktop);
+      @media (min-width: @min-width) {
+        width: 1280/@rem;
+        padding-left: 50/@rem;
+        padding-right: 70/@rem;
+      }
+    }
+  }
+  :root[data-dpr="@{tmp-dpr}"][data-platform="mobile"] & {
+    // [-1287]
+    @media screen {
+      .max-width(1280 - 1, @tmp-dpr, mobile);
+      @media (max-width: @max-width) {
+        width: 1024/@rem;
+        padding-left: 40/@rem;
+        padding-right: 60/@rem;
+      }
+    }
+    // [1280-]
+    @media screen {
+      .min-width(1280, @tmp-dpr, mobile);
+      @media (min-width: @min-width) {
+        width: 1280/@rem;
+        padding-left: 50/@rem;
+        padding-right: 70/@rem;
+      }
+    }
+  }
+  // ./loop body
+  .loop(@i + 1);
+};
+.loop();
+*/
