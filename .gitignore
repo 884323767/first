@@ -1,0 +1,4 @@
+material
+dist/*
+src/_assets
+!dist/stock_of_fish
