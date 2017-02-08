@@ -1,4 +1,5 @@
 material
 dist/*
 src/_assets
+node_modules/
 !dist/stock_of_fish
