@@ -14,10 +14,6 @@ var startY, endY, diff;
 // }
 
 
-export function gameStart() {
-  animation.scaleToFishman();
-  startFishingGame()
-}
 
 function touchStart(e) {
   if (e.touches && e.touches.length === 1) {
@@ -90,7 +86,6 @@ export function showThird() {
 
 export function showShareMask() {
   event.stopPropagation();
-
   $('.share-mask').show()
 }
 
@@ -106,8 +101,6 @@ export function goNext() {
 }
 
 export function goBefore() {
-    event.stopPropagation();
-
-  debugger
+  event.stopPropagation();
   window.history.back();
 }

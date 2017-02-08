@@ -1,6 +1,6 @@
 import 'fetch-ie8'
 import appShare from '../common/share.js'
-import control from './control.js'
+import controlPage from './control.js'
 
 const GET_WXINFO_URL = 'http://m.messtime.top/application/weixin?url=' + encodeURIComponent(location.href.split('#')[0])
 const sharePicUrl = "http://m.messtime.top/test/sharePic.png"
@@ -55,7 +55,7 @@ export function setShareInfo(shareTitle, imgUrl) {
       success: function () {
           // 用户确认分享后执行的回调函数
           alert('分享朋友圈成功，跳转到第三页');
-          control.showThird();
+          controlPage.showThird();
       },
       cancel: function () {
           // 用户取消分享后执行的回调函数
@@ -69,7 +69,7 @@ export function setShareInfo(shareTitle, imgUrl) {
       imgUrl: imgUrl, // 分享图标
       success: function () {
           alert('分享朋友成功，跳转到第三页');
-          control.showThird();
+          controlPage.showThird();
 
       },
       cancel: function () {
