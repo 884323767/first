@@ -3,13 +3,14 @@ import appShare from '../common/share.js'
 import * as control from './control.js'
 
 const GET_WXINFO_URL = 'http://m.messtime.top/application/weixin?url=' + encodeURIComponent(location.href.split('#')[0])
-const sharePicUrl = "http://m.messtime.top/test/sharePic.png"
-
+const sharePicUrl = "http://m.messtime.top/weixin/sharePic.png"
+const getUserInof = "http://m.messtime.top/application/user?code=CODE&state=youyu"
+var id;
+var code;
 export function setWxShare() {
   fetch(GET_WXINFO_URL).then((res) => {
     return res.json();
   }).then((data) => {
-    console.log('data', data)
     if (data.code === 0) {
       wxConfig(data.data);
     }
@@ -19,6 +20,7 @@ export function setWxShare() {
 }
 
 function wxConfig(data) {
+  id = data.appId;
   wx.config({
     // debug: true,
     appId: data.appId,
@@ -28,6 +30,7 @@ function wxConfig(data) {
     jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo', 'onMenuShareQZone']
   });
   wx.ready(() => {
+    authorize(id);
     setShareInfo('测试分享后回调', sharePicUrl)
 
   });
@@ -75,4 +78,42 @@ export function setShareInfo(shareTitle, imgUrl) {
           alert('取消分享，留在本页');
       }
   });
+}
+
+function authorize() {
+  if(getQueryString('code')){
+    getInfo();
+  } else {
+    console.log(location.href.split('#')[0]);
+    var authorize = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + id + "&redirect_uri=" + encodeURIComponent(location.href.split('#')[0]) + "&response_type=code&scope=snsapi_userinfo&state=youyu#wechat_redirect";
+    location.href = authorize;
+  }
+  // fetch(authorize).then((res) => {
+  //   return res.json();
+  // }).then((data) => {
+  //   console.log(data)
+  //   console.log('data', data)
+  // }).catch(function(e) {
+  //   console.log('authorize fail')
+  //   console.log("Oops, error", e);
+  // });
+}
+
+function getInfo() {
+  code = getQueryString('code')
+  var url = getUserInof.replace('CODE',code);
+  fetch(url).then((res) => {
+    return res.json();
+  }).then((data) => {
+    console.log('data', data)
+    alert(JSON.stringify(data.data));
+  }).catch(function(e) {
+    console.log("Oops, error", e);
+  });
+}
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
 }
